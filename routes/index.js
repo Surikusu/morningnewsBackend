@@ -29,5 +29,17 @@ router.get('/articles/polygon', (req, res) => {
     });
 });
 
+router.get('/articles/the-verge', (req, res) => {
+  fetch(`https://newsapi.org/v2/everything?sources=the-verge&apiKey=${NEWS_API_KEY}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === 'ok') {
+        res.json({ articles: data.articles });
+      } else {
+        res.json({ articles: [] });
+      }
+    });
+});
+
 
 module.exports = router;
