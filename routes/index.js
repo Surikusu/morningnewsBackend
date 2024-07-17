@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 
 const NEWS_API_KEY = process.env.NEWS_API_KEY;
 
-router.get('/articles', (req, res) => {
+router.get('/articles/techcrunch', (req, res) => {
   fetch(`https://newsapi.org/v2/everything?sources=techcrunch&apiKey=${NEWS_API_KEY}`)
     .then(response => response.json())
     .then(data => {
@@ -16,5 +16,18 @@ router.get('/articles', (req, res) => {
       }
     });
 });
+
+router.get('/articles/polygon', (req, res) => {
+  fetch(`https://newsapi.org/v2/everything?sources=polygon&apiKey=${NEWS_API_KEY}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === 'ok') {
+        res.json({ articles: data.articles });
+      } else {
+        res.json({ articles: [] });
+      }
+    });
+});
+
 
 module.exports = router;
